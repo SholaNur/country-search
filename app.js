@@ -229,10 +229,12 @@ suggestionInput.addEventListener("keyup", (event) => {
     let country = document.createElement("a");
 
     country.innerHTML = `${suggestionInput.value} <br>`;
-    country.href = `https://en.wikipedia.org/wiki/Main_Page/search?q=${country.textContent}`;
+    country.href = `https://en.wikipedia.org/wiki/Main_Page/search?q=${(country.textContent.style.color =
+      "white")}`;
     country.target = "_blank";
     searchDisplay.appendChild(country);
     country.addEventListener("click", getCountry(country.textContent));
+
     return null;
   }
   if (event.keyCode >= 65 && event.keyCode <= 90) {

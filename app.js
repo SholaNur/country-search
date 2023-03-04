@@ -213,8 +213,28 @@ const countryList = [
   "Zimbabwe",
 ];
 
+window.addEventListener("load", () => {
+  suggestionInput.focus();
+});
+
+function getCountry(country) {
+  const word = country;
+  const apiURL = `https://restcountries.com/v3.1/name/;`;
+  console.log(apiURL);
+}
+
 suggestionInput.addEventListener("keyup", (event) => {
   suggestionList.innerHTML = "";
+  if (event.keyCode === 13) {
+    let country = document.createElement("a");
+
+    country.innerHTML = `${suggestionInput.value} <br>`;
+    country.href = `https://en.wikipedia.org/wiki/Main_Page/search?q=${country.textContent}`;
+    country.target = "_blank";
+    searchDisplay.appendChild(country);
+    country.addEventListener("click", getCountry(country.textContent));
+    return null;
+  }
   if (event.keyCode >= 65 && event.keyCode <= 90) {
     keyWords.push(event.key.toUpperCase());
   }
@@ -238,7 +258,23 @@ suggestionInput.addEventListener("keyup", (event) => {
         listItem.innerText = suggestion;
 
         suggestionList.appendChild(listItem);
+
+        listItem.addEventListener("click", (e) => {
+          console.log(e.target.innerText);
+          suggestionInput.value = e.target.textContent;
+          suggestionList.innerHTML = "";
+        });
       });
     }
   }
+});
+
+suggestionButton.addEventListener("click", () => {
+  let country = document.createElement("a");
+
+  country.innerHTML = `${suggestionInput.value} <br>`;
+  country.href = `https://www.google.com/search?q=${country.textContent}`;
+  country.target = "_blank";
+  searchDisplay.appendChild(country);
+  return null;
 });
